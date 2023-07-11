@@ -11,6 +11,16 @@ app.use('/',(req, res, next)=>{
     res.send({message:"welcome to kanban"})
 })
 
+app.use((err, req, res, next)=>{
+    const status = err.status || 500
+    const message = err.message || "Something went wrong"
+    return res.status(status).json({
+        success: false,
+        message: message,
+        status
+    })
+})
+
 app.listen(process.env.PORT,()=>{
     connect()
     console.log("app is running")
