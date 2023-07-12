@@ -8,9 +8,9 @@ const app = express();
 app.use(express.json());
 
 
-app.use('/', (req, res, next) => {
-    res.send({ message: "welcome to kanban" })
-})
+// app.use('/', (req, res, next) => {
+//     res.send({ message: "welcome to kanban" })
+// })
 
 app.use('/api/v1/users', userRouter)
 

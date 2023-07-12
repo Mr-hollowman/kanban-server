@@ -1,10 +1,11 @@
-import Users from "../models/Users"
-import { createError } from "../utils/createError";
+import Users from "../models/Users.js"
+import { createError } from "../utils/createError.js";
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 export const signup = async (req, res, next) => {
     try {
-        const user = Users.findOne({ email: req.body.email })
+        const user = await Users.findOne({ email: req.body.email })
         if (user) return next(createError(400, "User already exists"));
 
         const salt = bcrypt.genSaltSync(15);
@@ -22,7 +23,7 @@ export const signup = async (req, res, next) => {
 
 export const signin = async (req, res, next) => {
     try {
-        const user = Users.findOne({ email: req.body.email })
+        const user = await Users.findOne({ email: req.body.email })
         if (!user) return next(createError(404, "User not found"));
 
         const decryptPassword = bcrypt.compare(req.body.password, user.password)
