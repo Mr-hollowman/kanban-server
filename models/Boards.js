@@ -5,6 +5,6 @@ const boardsSchema = new mongoose.Schema({
     title: { type: String, required: true },
     columns: { type: Array },
     tasks: { type: Array }
-})
+}, { timestamps: true })
 
 export default mongoose.model("Boards", boardsSchema)
