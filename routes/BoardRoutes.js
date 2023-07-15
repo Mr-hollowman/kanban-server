@@ -1,5 +1,5 @@
 import express from 'express';
-import { createNewBoard, createTask, changeColumn, getTasks, updateTask, updateBoard, deleteBoard } from '../controllers/Boards.controllers.js';
+import { createNewBoard, createTask, changeColumn, getTasks, updateTask, updateBoard, deleteBoard, deleteTask } from '../controllers/Boards.controllers.js';
 import { verifyToken } from '../utils/verifyToken.js';
 
 const router = express.Router();
@@ -11,5 +11,6 @@ router.get('/getTasks', verifyToken, getTasks)
 router.post('/updateTask', verifyToken, updateTask)
 router.post('/updateBoard', verifyToken, updateBoard)
 router.delete('/deleteBoard', verifyToken, deleteBoard)
+router.delete('/deleteTask', verifyToken, deleteTask)
 
 export default router

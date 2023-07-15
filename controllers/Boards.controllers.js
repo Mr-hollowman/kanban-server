@@ -22,8 +22,9 @@ export const createNewBoard = async (req, res, next) => {
 
 export const deleteBoard = async (req, res, next) => {
     try {
-        await Boards.findByIdAndDelete({ _id: req.query.boardId })
-        res.status(200).json({message:"Board deleted successfully"})
+        await Boards.findByIdAndDelete({ _id: req.query.boardId }).then(resp=>{
+            res.status(200).json({message:"Board deleted successfully"})
+        })
     } catch (error) {
         next(createError(501, error.message))
     }
@@ -46,6 +47,16 @@ export const createTask = async (req, res, next) => {
 
     } catch (error) {
         next(error)
+    }
+}
+
+export const deleteTask = async (req, res, next) => {
+    try {
+        await Task.findByIdAndDelete({ _id: req.query.taskId }).then(()=>{
+            res.status(200).json({message:"Task deleted successfully"})
+        })
+    } catch (error) {
+        next(createError(501, error.message))
     }
 }
 
