@@ -51,3 +51,12 @@ export const changeColumn = async (req, res, next) => {
         next(createError(400, error.message))
     }
 }
+
+export const getTasks = async (req, res, next) => {
+    try {
+        const tasks = await Task.where("boardId").equals(req.query.boardId);
+        res.status(200).json(tasks)
+    } catch (error) {
+        next(createError(400, error.message))
+    }
+}
