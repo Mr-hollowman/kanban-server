@@ -16,7 +16,16 @@ export const createNewBoard = async (req, res, next) => {
         newBoard.save()
         res.status(200).send({ message: "Board has been created" })
     } catch (error) {
-        next(error)
+        next(createError(501, error.message))
+    }
+}
+
+export const deleteBoard = async (req, res, next) => {
+    try {
+        await Boards.findByIdAndDelete({ _id: req.query.boardId })
+        res.status(200).json({message:"Board deleted successfully"})
+    } catch (error) {
+        next(createError(501, error.message))
     }
 }
 
