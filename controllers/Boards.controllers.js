@@ -59,6 +59,15 @@ export const deleteTask = async (req, res, next) => {
     }
 }
 
+export const getBoards = async (req, res, next) => {
+    try {
+        const boards = await Boards.where("creator").equals(req.user.id);
+        res.status(200).json(boards)
+    } catch (error) {
+        next(createError(400, error.message))
+    }
+}
+
 export const changeColumn = async (req, res, next) => {
     try {
         const { taskId, columnToChange } = req.body
