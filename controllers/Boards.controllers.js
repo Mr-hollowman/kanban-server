@@ -7,7 +7,6 @@ export const createNewBoard = async (req, res, next) => {
         creator: req.user.id,
         title: req.body.title,
         columns: req.body.columns,
-        tasks: []
     })
     try {
         const checkExists = await Boards.findOne({ title: req.body.title });
