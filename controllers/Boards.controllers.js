@@ -70,3 +70,13 @@ export const updateTask = async (req, res, next) => {
         next(createError(400, error.message))
     }
 }
+
+export const updateBoard = async (req, res, next) => {
+    const { title, columns } = req.body
+    try {
+        const newTask = await Boards.findByIdAndUpdate({ _id: req.query.boardId }, { $set: { title, columns } }, { new: true })
+        res.status(200).json(newTask)
+    } catch (error) {
+        next(createError(400, error.message))
+    }
+}
