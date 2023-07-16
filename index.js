@@ -19,7 +19,7 @@ app.use(cookieParser())
 
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/boards', boardRouter)
-app.use('/api/v1/logEvent', verifyToken,logEvent)
+app.use('/api/v1/logEvent', verifyToken, logEvent)
 
 app.use((err, req, res, next) => {
     const status = err.status || 500
