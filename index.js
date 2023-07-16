@@ -4,6 +4,8 @@ import connect from './utils/connect.js';
 import userRouter from './routes/UserRouters.js'
 import boardRouter from './routes/BoardRoutes.js'
 import cookieParser from 'cookie-parser';
+import { logEvent } from './utils/logEvents.js';
+import { verifyToken } from './utils/verifyToken.js';
 
 dotenv.config();
 const app = express();
@@ -17,6 +19,7 @@ app.use(cookieParser())
 
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/boards', boardRouter)
+app.use('/api/v1/logEvent', verifyToken,logEvent)
 
 app.use((err, req, res, next) => {
     const status = err.status || 500
