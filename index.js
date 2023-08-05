@@ -6,12 +6,26 @@ import boardRouter from './routes/BoardRoutes.js'
 import cookieParser from 'cookie-parser';
 import { logEvent } from './utils/logEvents.js';
 import { verifyToken } from './utils/verifyToken.js';
+import cors from 'cors';
 
 dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cookieParser())
 
+const allowedOrigins = ['http://localhost:3000'];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+  })
+);
 
 // app.use('/', (req, res, next) => {
 //     res.send({ message: "welcome to kanban" })
