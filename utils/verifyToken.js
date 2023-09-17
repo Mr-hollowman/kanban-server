@@ -2,6 +2,7 @@ import { createError } from "./createError.js";
 import jwt from 'jsonwebtoken';
 
 export const verifyToken = (req, res, next) => {
+    console.log(req.cookies,"cookies")
     const token = req.cookies.access_token;
     if (!token) return next(createError(401, "you are not authendicated"))
 
