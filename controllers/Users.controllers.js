@@ -16,7 +16,7 @@ export const signup = async (req, res, next) => {
         })
         await newUser.save();
         const { password, ...others } = newUser._doc
-        res.status(200).json({...others})
+        res.status(200).json({ ...others })
     } catch (error) {
         next(error)
     }
@@ -36,6 +36,16 @@ export const signin = async (req, res, next) => {
         res.cookie("access_token", token, {
             httpOnly: true
         }).status(200).json(others)
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const logout = async (req, res, next) => {
+    try {
+        // res.cookie("access_token", undefined).status(200).json({msg:"Logout successfully"})
+        res.clearCookie("access_token",{path:'/'})
+        res.end()
     } catch (error) {
         next(error)
     }
