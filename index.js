@@ -12,23 +12,37 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cookieParser())
+const corsOptions = {
+    origin: 'http://localhost:3000', // Replace with the actual origin of your frontend
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Allow cookies to be sent with the request
+    optionsSuccessStatus: 204, // Set the preflight request response status code to 204
+  };
+  
+  app.use(cors(corsOptions));
 
-const allowedOrigins = ['http://localhost:3000'];
+// const allowedOrigins = ['http://localhost:3000'];
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-  })
-);
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error('Not allowed by CORS'));
+//       }
+//     },
+//     // credentials: true,
+//   })
+//   );
+  
+// app.get('/', (req, res, next) => {
+//   res.cookie("keyOf",`${new Date().getTime()}`)
+//     res.send({ message: "cookie set" })
+// })
 
-// app.use('/', (req, res, next) => {
-//     res.send({ message: "welcome to kanban" })
+// app.get('/see-Cookie', (req, res, next) => {
+//   res.send({cookie:req.cookies.keyOf})
 // })
 
 app.use('/api/v1/users', userRouter)
